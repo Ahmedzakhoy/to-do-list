@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+    <script
+      src="https://kit.fontawesome.com/a8d3490275.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <script defer type="module" src="script.js"></script>
+  </head>
+  <body>
+    <i class="fa-solid fa-square-plus add-btn"></i>
+    <div class="overlay hidden"></div>
+    <form action="" method="post" class="hidden">
+      <i class="fa-solid fa-xmark close-modal"></i>
+      <textarea
+        name="add-task"
+        id="add-task"
+        placeholder="write your task here"
+        required
+      ></textarea>
+      <div class="add-info">
+        <div class="add-timescale">
+          <label for="add-timescale">Choose timescale:</label>
+          <select
+            class="timescale-dropdown"
+            name="add-timescale"
+            id="add-timescale"
+            required
+          >
+            <option selected="true" value="daily">daily</option>
+            <option value="weekly">weekly</option>
+            <option value="monthly">monthly</option>
+          </select>
+        </div>
+        <div class="add-importance-change">
+          <label for="add-importance">Choose Importance:</label>
+          <select
+            class="add-select-dropdown"
+            name="add-importance"
+            id="add-importance"
+            required
+          >
+            <option value="1">not important</option>
+            <option selected="true" value="2">important</option>
+            <option value="3">highly important</option>
+          </select>
+        </div>
+
+        <input type="submit" value="Add" />
+      </div>
+    </form>
+    <header>
+      <span
+        >Welcome, to this <br />
+        <div class="todo">TO-DO</div>
+        list App
+        <br />
+        <div class="use">click the add button to add a task</div>
+      </span>
+      <img src="imgs/header.jpg" alt="header image" />
+    </header>
+    <main>
+      <div class="options">
+        <div class="sort">
+          <label for="sort-dropdown">sort by:</label>
+          <select class="sort-dropdown" name="sort-dropdown" id="sort-dropdown">
+            <option value="time">time created</option>
+            <option value="importance">importance</option>
+          </select>
+        </div>
+        <div class="show-only">
+          <label for="show-only-dropdown">Show:</label>
+          <select
+            class="show-only-dropdown"
+            name="show-only-dropdown"
+            id="show-only-dropdown"
+          >
+            <option value="all">All</option>
+            <option value="Important">only Important</option>
+            <option value="Highly Important">only highly Important</option>
+            <option value="not done">only not accomplished</option>
+            <option value="done">only accomplished</option>
+            <option value="daily">only daily</option>
+            <option value="weekly">only weekly</option>
+            <option value="monthly">only monthly</option>
+          </select>
+        </div>
+        <button class="clear">👎⛔ Remove All!</button>
+      </div>
+      <div class="container"></div>
+    </main>
+    <footer>
+      <div class="copy">all rights reserved &copy; 2022</div>
+      <div class="developer">developed by <span>Ahmed Mustafa</span></div>
+    </footer>
+  </body>
+</html>

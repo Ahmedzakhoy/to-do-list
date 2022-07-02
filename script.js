@@ -369,7 +369,8 @@ export function showAndSortFunction() {
 ////////////////////////////////////////////
 //update timer every 100 milliseconds
 setInterval(function () {
-  filteredAndSortedData.forEach((sample) => {
+  data = filteredAndSortedData ? filteredAndSortedData : data;
+  data.forEach((sample) => {
     if (sample.state === "done") return;
     sample.remainingTime = sample.endDate - now;
     const box = document.getElementById(`${sample.id}`);

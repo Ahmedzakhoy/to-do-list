@@ -129,13 +129,17 @@ export function filterDataFunction() {
 
 export function sortDatafunction() {
   if (config.sort === "time") {
-    filteredAndSortedData = filteredData.sort(
-      (current, next) => current.creationDate - next.creationDate
-    );
+    filteredAndSortedData = filteredData
+      ? filteredData.sort(
+          (current, next) => current.creationDate - next.creationDate
+        )
+      : data.sort((current, next) => current.creationDate - next.creationDate);
   } else if (config.sort === "importance") {
-    filteredAndSortedData = filteredData.sort(
-      (current, next) => next.importance - current.importance
-    );
+    filteredAndSortedData = filteredData
+      ? filteredData.sort(
+          (current, next) => next.importance - current.importance
+        )
+      : data.sort((current, next) => next.importance - current.importance);
   }
   helpers.removeAllSelectAttributesAndAddActive(
     optionsSortDropdown,

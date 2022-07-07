@@ -216,7 +216,8 @@ parentAddForm.addEventListener("submit", function (event) {
     "yet"
   );
   data.push(task);
-
+  filterDataFunction();
+  sortDatafunction();
   parentAddForm.innerHTML = `<span class="success-message">${successMessage}</span>`;
   setTimeout(function () {
     helpers.hideForm();
@@ -303,31 +304,7 @@ function init() {
   config = userConfig;
   filterDataFunction();
   sortDatafunction();
-  // container.innerHTML = "";
-  for (const task of filteredAndSortedData) {
-    if (task.state === "yet" || task.state === "expired") {
-      makeTask(task.task, task.importance, task.timescale, task.state, task.id);
-    } else if (task.state === "done") {
-      makeTask(task.task, task.importance, task.timescale, task.state, task.id);
-      const box = document.getElementById(`${task.id}`);
-      const doneBtn = box.querySelector(".accomplished");
-      const icon = box.querySelector(".done-icon");
-      const timer = box.querySelector(".timer");
-      const stateEl = box.querySelector(".state");
-      const importanceDropdown = box.querySelector(".select-dropdown");
-      const accomplishDate = task.accomplishDate;
-      const state = task.state;
-      importanceDropdown.setAttribute("disabled", "");
-      doneBtn.remove();
-      stateEl.textContent = `state: ${state}`;
-      timer.innerHTML = ` accomplished on: <span class="timeEl">${new Intl.DateTimeFormat(
-        "en-GB",
-        dateFormatOptions
-      ).format(accomplishDate)}</span>`;
-      helpers.changeDoneTheme(box);
-      icon.style.display = "block";
-    }
-  }
+  showTasks();
 }
 //calling the init function
 init();
@@ -339,38 +316,14 @@ export function showAndSortFunction() {
   filterDataFunction();
   sortDatafunction();
   container.innerHTML = "";
-  for (const task of filteredAndSortedData) {
-    if (task.state === "yet" || task.state === "expired") {
-      makeTask(task.task, task.importance, task.timescale, task.state, task.id);
-    } else if (task.state === "done") {
-      makeTask(task.task, task.importance, task.timescale, task.state, task.id);
-      const box = document.getElementById(`${task.id}`);
-      const doneBtn = box.querySelector(".accomplished");
-      const icon = box.querySelector(".done-icon");
-      const timer = box.querySelector(".timer");
-      const stateEl = box.querySelector(".state");
-      const importanceDropdown = box.querySelector(".select-dropdown");
-      const accomplishDate = task.accomplishDate;
-      const state = task.state;
-      importanceDropdown.setAttribute("disabled", "");
-      doneBtn.remove();
-      stateEl.textContent = `state: ${state}`;
-      timer.innerHTML = ` accomplished on: <span class="timeEl">${new Intl.DateTimeFormat(
-        "en-GB",
-        dateFormatOptions
-      ).format(accomplishDate)}</span>`;
-      helpers.changeDoneTheme(box);
-      icon.style.display = "block";
-    }
-  }
+  showTasks();
 }
 ////////////////////////////////////////////
 // function to update the timers
 ////////////////////////////////////////////
 //update timer every 100 milliseconds
 setInterval(function () {
-  data = filteredAndSortedData ? filteredAndSortedData : data;
-  data.forEach((sample) => {
+  filteredAndSortedData.forEach((sample) => {
     if (sample.state === "done") return;
     sample.remainingTime = sample.endDate - now;
     const box = document.getElementById(`${sample.id}`);
@@ -417,3 +370,34 @@ const storeData = function () {
   localStorage.setItem("userData", JSON.stringify(data));
   localStorage.setItem("userConfig", JSON.stringify(config));
 };
+
+////////////////////////////////////////////
+// Show Tasks function
+////////////////////////////////////////////
+
+function showTasks() {
+  for (const task of filteredAndSortedData) {
+    if (task.state === "yet" || task.state === "expired") {
+      makeTask(task.task, task.importance, task.timescale, task.state, task.id);
+    } else if (task.state === "done") {
+      makeTask(task.task, task.importance, task.timescale, task.state, task.id);
+      const box = document.getElementById(`${task.id}`);
+      const doneBtn = box.querySelector(".accomplished");
+      const icon = box.querySelector(".done-icon");
+      const timer = box.querySelector(".timer");
+      const stateEl = box.querySelector(".state");
+      const importanceDropdown = box.querySelector(".select-dropdown");
+      const accomplishDate = task.accomplishDate;
+      const state = task.state;
+      importanceDropdown.setAttribute("disabled", "");
+      doneBtn.remove();
+      stateEl.textContent = `state: ${state}`;
+      timer.innerHTML = ` accomplished on: <span class="timeEl">${new Intl.DateTimeFormat(
+        "en-GB",
+        dateFormatOptions
+      ).format(accomplishDate)}</span>`;
+      helpers.changeDoneTheme(box);
+      icon.style.display = "block";
+    }
+  }
+}
